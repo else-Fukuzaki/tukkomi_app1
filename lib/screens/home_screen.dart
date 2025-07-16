@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -8,6 +9,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final _audioPlayer = AudioPlayer();
+
   // String _text01 = 'おめでとうございます';
   // String _text02 = '合格です';
   // String _text03 = '良くできました';
@@ -96,12 +99,14 @@ class _HomeScreenState extends State<HomeScreen> {
     return Container(
       padding: EdgeInsets.all(8.0),
       child: ElevatedButton(
-          onPressed: () => _playSound(soundPath),
-          child: Text(displayText)),
+        onPressed: () => _playSound(soundPath),
+        child: Text(displayText),
+      ),
     );
   }
 
-  void _playSound(String soundPath) {
-    //TODO
+  _playSound(String soundPath) async {
+    await _audioPlayer.setAsset(soundPath, initialPosition: Duration.zero);
+    _audioPlayer.play();
   }
 }
